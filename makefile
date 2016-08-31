@@ -19,7 +19,8 @@ HAL_DRIVERINC = $(HAL_DRIVER)/Inc/
 
 OBJDIR = obj
 OUTDIR = bin
-SRCDIR = src
+SRCDIR = .
+SYSTEMDIR = System
 
 EXTRAINCDIRS  = $(CMSISINC) $(CMSISINC2) $(BSPINC) $(FREERTOSINC) $(FREERTOSINC2) $(HAL_DRIVERINC) $(TOPDIR)
 
@@ -44,6 +45,9 @@ OUT = $(OUTDIR)/$(PROJECTNAME).elf
 SRC := $(wildcard $(SRCDIR)/*.c)
 SRC += $(wildcard $(SRCDIR)/*.s)
 
+SRC := $(wildcard $(SYSTEMDIR)/*.c)
+SRC += $(wildcard $(SYSTEMDIR)/*.s)
+
 # include library path
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS)) -I.
 
@@ -66,6 +70,7 @@ OBJS = $(addprefix $(OBJDIR)/, $(notdir $(addsuffix .o, $(basename $(SRC)))))
 
 # source code search path
 VPATH := $(SRCDIR)
+VPATH := $(SYSTEMDIR)/
 VPATH += $(HAL_DRIVER)/Src
 VPATH += $(BSP)/
 VPATH += $(CMSIS)/
